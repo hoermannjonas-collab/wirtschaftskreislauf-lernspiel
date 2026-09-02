@@ -1,6 +1,6 @@
 # Wirtschaftskreislauf – Das Lernspiel
 
-Tablet- und mobilfreundliche Lernsimulation für Schüler:innen der Fachoberschule. Die App verbindet das einfache und erweiterte Kreislaufmodell mit Entscheidungen, verpflichtenden Prognosen, Rundenfortschritt, ungeplanten Lagerveränderungen und erklärendem Teilfeedback.
+Tablet- und mobilfreundliche Lernsimulation für Schüler:innen der Fachoberschule. Die App beginnt bewusst niedrigschwellig mit Erkennen, Zuordnen und einfachem Rechnen. Erst nach dieser Basis folgen Prognosen, Rundenfortschritt, ungeplante Lagerveränderungen und die Beurteilung wirtschaftspolitischer Maßnahmen.
 
 ## Direkt öffnen
 
@@ -10,6 +10,9 @@ Tablet- und mobilfreundliche Lernsimulation für Schüler:innen der Fachoberschu
 
 - React 19, TypeScript und Vite
 - vier vollständig spielbare Demo-Missionen
+- sichtbare Progression **Grundlage → Anwendung → Analyse → Beurteilung**
+- Einstiegsrunden ohne Prognose, Zeitbegründung oder Reflexionspflicht
+- Bewertung nur der Kompetenzen, die in der jeweiligen Runde tatsächlich verlangt werden
 - einfacher Kreislauf (FOS 11) sowie erweiterter Kreislauf (FOS 13)
 - Drag-and-Drop und mobile Alternative „Karte antippen → Ziel antippen“
 - wirtschaftspolitische Entscheidungen mit zugänglichem Regler und Plus-/Minus-Tasten
@@ -47,7 +50,18 @@ Der fertige statische Build liegt in `dist/`. Vite verwendet `base: './'`; dadur
 3. **Exportdämpfer und Kreditimpuls** – FOS 13, 4 Runden
 4. **Ölpreisschock und Zielkonflikte** – FOS 13, 4 Runden
 
-Jede Runde folgt dem Ablauf **Beobachten → Entscheiden → Prognose begründen → Folgen auswerten → reflektieren**. Der Zeitsprung bleibt gesperrt, bis eine Prognose und Begründung vorliegen.
+Die ersten Runden folgen dem kurzen Ablauf **Ansehen → Lösen → Prüfen**. Sie verlangen nur Begriffs-, Richtungs-, Konten- oder Rechenwissen. Simulationsrunden erweitern den Ablauf auf **Beobachten → Bearbeiten → Prognose → Auswerten → Reflektieren**. Ein Zeitsprung und zeitliche Begründungen erscheinen damit erst, wenn die fachliche Basis gelegt ist.
+
+### Didaktische Niveaustufung
+
+Die Progression orientiert sich am bayerischen LehrplanPLUS:
+
+- Jahrgangsstufe 11 legt im Profilfach VWL den Schwerpunkt auf mikroökonomische bzw. einzelwirtschaftliche Grundlagen.
+- Jahrgangsstufe 12 wechselt zu makroökonomischen Vorgängen, Modellen, Kennzahlen und Ursache-Wirkungs-Zusammenhängen.
+- Jahrgangsstufe 13 fordert vertiefte Analyse, begründete Standpunkte und die Beurteilung fiskalpolitischer Maßnahmen einschließlich Wirkungen und Folgen.
+- Die App nutzt entsprechend vier Aufgabentiefen: **Grundlage** (identifizieren/zuordnen), **Anwendung** (einsetzen/berechnen), **Analyse** (Zusammenhänge und Zeitbezug), **Beurteilung** (Annahmen, Verteilung und Zielkonflikte).
+
+Offizielle Grundlagen: [Fachprofil Volkswirtschaftslehre FOS](https://www.lehrplanplus.bayern.de/fachprofil/fos/volkswirtschaftslehre/12), [VWL 12](https://www.lehrplanplus.bayern.de/fachlehrplan/fos/12/volkswirtschaftslehre), [VWL 13](https://www.lehrplanplus.bayern.de/fachlehrplan/fos/13/volkswirtschaftslehre) und [ISB-Leitfaden zu kompetenzorientierten Leistungsaufgaben](https://www.isb.bayern.de/fileadmin/user_upload/Grundsatzabteilung/Kompetenzorientierung/Leitfaden_kompetenzorientierte_leistungsaufgaben_2019.pdf).
 
 ## Fachmodell
 

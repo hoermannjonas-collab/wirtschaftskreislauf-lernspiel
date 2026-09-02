@@ -1,6 +1,8 @@
 export type Level = 'FOS 11' | 'FOS 11/12' | 'FOS 13'
 export type ActorId = 'household' | 'firm' | 'state' | 'finance' | 'foreign'
 export type Phase = 'observe' | 'act' | 'predict' | 'reveal'
+export type DemandLevel = 'Grundlage' | 'Anwendung' | 'Analyse' | 'Beurteilung'
+export type RubricKey = keyof Rubric
 
 export interface AccountsInput {
   C: number
@@ -52,11 +54,23 @@ export interface Choice {
   distribution: string
   conflict: string
   assumptions: string[]
+  correct?: boolean
 }
 
 export interface FlowTask {
   cards: { id: string; label: string; target: string }[]
   zones: { id: string; label: string }[]
+}
+
+export interface CalculationTask {
+  introduction: string
+  fields: {
+    id: string
+    label: string
+    formula: string
+    answer: number
+    unit: string
+  }[]
 }
 
 export interface MissionRound {
@@ -67,8 +81,15 @@ export interface MissionRound {
   instruction: string
   tip: string
   checkAfter: string
+  demandLevel: DemandLevel
+  simulationRound: boolean
+  requiresPrediction: boolean
+  requiresRationale: boolean
+  requiresReflection: boolean
+  assessedCriteria: RubricKey[]
   choices: Choice[]
   flowTask?: FlowTask
+  calculationTask?: CalculationTask
 }
 
 export interface Mission {
@@ -107,6 +128,11 @@ export interface RoundRecord {
   conflict: string
   assumptions: string[]
   rubric: Rubric
+  assessedCriteria: RubricKey[]
+  demandLevel: DemandLevel
+  simulationRound: boolean
+  taskCorrect: number
+  taskTotal: number
 }
 
 export interface GameState {
@@ -123,5 +149,6 @@ export interface GameState {
   rationale: string
   reflection: string
   flowAnswers: Record<string, string>
+  calculationAnswers: Record<string, string>
   history: RoundRecord[]
 }

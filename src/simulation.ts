@@ -84,11 +84,11 @@ export function scoreRationale(text: string, predictionCount: number, flowCorrec
   const includesAny = (terms: string[]) => terms.some((term) => normalized.includes(term))
   const ratio = flowTotal ? flowCorrect / flowTotal : 0.5
   return {
-    accounting: includesAny(['saldo', 'entnahme', 'zuführung', 'lager', 'konto']) ? 2 : 1,
-    direction: ratio === 1 ? 2 : ratio >= 0.5 ? 1 : 0,
-    time: includesAny(['zunächst', 'direkt', 'später', 'folgerunde', 'verzögert']) ? 2 : 1,
+    accounting: includesAny(['saldo', 'entnahme', 'zuführung', 'lager', 'konto']) ? 2 : 0,
+    direction: flowTotal ? (ratio === 1 ? 2 : ratio >= 0.5 ? 1 : 0) : includesAny(['steigt', 'sinkt', 'erhöht', 'verringert', 'von ', ' zu ']) ? 2 : predictionCount ? 1 : 0,
+    time: includesAny(['zunächst', 'direkt', 'später', 'folgerunde', 'verzögert']) ? 2 : 0,
     assumptions: includesAny(['annahme', 'wenn', 'unter der bedingung', 'erwartung']) ? 2 : 0,
-    distribution: includesAny(['verteilung', 'einkommen', 'haushalt', 'unternehmen', 'betroffen']) ? 2 : 1,
+    distribution: includesAny(['verteilung', 'einkommen', 'haushalt', 'unternehmen', 'betroffen']) ? 2 : 0,
     reasoning: text.trim().length >= 120 && predictionCount >= 2 ? 2 : text.trim().length >= 45 ? 1 : 0,
   }
 }

@@ -1,6 +1,6 @@
 import type { GameState } from './types'
 
-const STORAGE_KEY = 'wirtschaftskreislauf-game-v1'
+const STORAGE_KEY = 'wirtschaftskreislauf-game-v2'
 
 export function loadGame(): GameState | null {
   try {

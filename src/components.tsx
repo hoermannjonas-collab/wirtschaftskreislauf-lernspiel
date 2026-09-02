@@ -1,7 +1,7 @@
 import { useMemo, useState, type DragEvent, type KeyboardEvent, type ReactNode } from 'react'
 import { actors, flows } from './data'
 import { UNIT } from './simulation'
-import type { Accounts, ActorId, FlowTask, Indicators, RoundRecord, Rubric } from './types'
+import type { Accounts, ActorId, CalculationTask, FlowTask, Indicators, RoundRecord, Rubric, RubricKey } from './types'
 
 export function Icon({ name }: { name: 'play' | 'chart' | 'book' | 'save' | 'arrow' | 'check' | 'warning' | 'idea' }) {
   const glyph = { play: '▶', chart: '▥', book: '▤', save: '●', arrow: '→', check: '✓', warning: '!', idea: '✦' }[name]
@@ -118,6 +118,24 @@ export function TouchDropTask({ task, answers, onChange }: { task: FlowTask; ans
   )
 }
 
+export function CalculationTaskCard({ task, answers, onChange }: { task: CalculationTask; answers: Record<string, string>; onChange: (answers: Record<string, string>) => void }) {
+  return (
+    <section className="calculation-task card" aria-labelledby="calculation-heading">
+      <div className="section-head"><div><p className="eyebrow">EINFACH RECHNEN</p><h2 id="calculation-heading">Kennzahlen bestimmen</h2></div><span className="status-badge">{Object.keys(answers).length}/{task.fields.length}</span></div>
+      <p>{task.introduction}</p>
+      <div className="calculation-fields">
+        {task.fields.map((field) => (
+          <label key={field.id} htmlFor={`calculation-${field.id}`}>
+            <span><b>{field.label}</b><small>{field.formula}</small></span>
+            <span className="number-entry"><input id={`calculation-${field.id}`} inputMode="decimal" type="number" step="any" value={answers[field.id] ?? ''} onChange={(event) => onChange({ ...answers, [field.id]: event.target.value })} /><small>{field.unit}</small></span>
+          </label>
+        ))}
+      </div>
+      <p className="calculation-note"><Icon name="idea" /> Trage nur die Zahl ein. Eine schriftliche Begründung ist hier noch nicht nötig.</p>
+    </section>
+  )
+}
+
 export function PolicyIntensity({ value, onChange }: { value: number; onChange: (value: number) => void }) {
   const change = (next: number) => onChange(Math.max(50, Math.min(150, next)))
   return (
@@ -131,8 +149,11 @@ export function PolicyIntensity({ value, onChange }: { value: number; onChange: 
 
 const rubricLabels: Record<keyof Rubric, string> = { accounting: 'Kontenlogik', direction: 'Stromrichtung', time: 'Zeitbezug', assumptions: 'Annahmen', distribution: 'Verteilung', reasoning: 'Begründung' }
 
-export function FeedbackRubric({ rubric }: { rubric: Rubric }) {
-  return <div className="rubric" aria-label="Teilfeedback">{(Object.keys(rubric) as (keyof Rubric)[]).map((key) => <div key={key}><span>{rubricLabels[key]}</span><strong>{rubric[key]} / 2</strong><small>{rubric[key] === 2 ? 'klar belegt' : rubric[key] === 1 ? 'Ansatz vorhanden' : 'noch ergänzen'}</small></div>)}</div>
+export function FeedbackRubric({ rubric, assessed = Object.keys(rubric) as RubricKey[] }: { rubric: Rubric; assessed?: RubricKey[] }) {
+  return <div className="rubric" aria-label="Teilfeedback">{(Object.keys(rubric) as RubricKey[]).map((key) => {
+    const isAssessed = assessed.includes(key)
+    return <div key={key} className={!isAssessed ? 'not-assessed' : ''}><span>{rubricLabels[key]}</span><strong>{isAssessed ? `${rubric[key]} / 2` : 'später'}</strong><small>{!isAssessed ? 'in dieser Stufe noch nicht bewertet' : rubric[key] === 2 ? 'sicher gelöst' : rubric[key] === 1 ? 'teilweise gelöst' : 'noch üben'}</small></div>
+  })}</div>
 }
 
 export function IndicatorHistory({ history }: { history: RoundRecord[] }) {
