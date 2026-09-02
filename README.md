@@ -2,6 +2,10 @@
 
 Tablet- und mobilfreundliche Lernsimulation für Schüler:innen der Fachoberschule. Die App verbindet das einfache und erweiterte Kreislaufmodell mit Entscheidungen, verpflichtenden Prognosen, Rundenfortschritt, ungeplanten Lagerveränderungen und erklärendem Teilfeedback.
 
+## Direkt öffnen
+
+**[Wirtschaftskreislauf – Das Lernspiel starten](https://hoermannjonas-collab.github.io/wirtschaftskreislauf-lernspiel/)**
+
 ## Was enthalten ist
 
 - React 19, TypeScript und Vite
@@ -62,7 +66,11 @@ Ein Plan-Saldo ungleich null wird nicht als automatische Stabilität dargestellt
 
 Die bereitgestellten Demo-Daten enthalten bei der Mission „Exportdämpfer und Kreditimpuls“ eine gerundete Sparangabe `S = 125`, während `Yd − C = 122` ergibt. Die App übernimmt beide verbindlichen Angaben und weist die statistische Abstimmung von `+3 Mrd. €` transparent aus.
 
-## GitHub Pages veröffentlichen
+## GitHub Pages
+
+Die App ist unter <https://hoermannjonas-collab.github.io/wirtschaftskreislauf-lernspiel/> veröffentlicht. Jeder Push auf `main` startet automatisch Tests, Build und Deployment.
+
+Für eine Kopie in einem anderen Repository:
 
 1. Diesen Ordner als öffentliches GitHub-Repository anlegen und auf den Branch `main` pushen.
 2. Im Repository **Settings → Pages** öffnen.
